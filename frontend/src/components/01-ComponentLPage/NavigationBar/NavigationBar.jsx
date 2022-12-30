@@ -85,7 +85,10 @@ export default function NavigationBar() {
           <HStack spacing={8} alignItems={'center'}>
             <Box>
               <HStack as={LinkTo} to="/" alignItems={'center'}>
-                <Image src="" alt="Logo" />
+                <Image
+                  src={`${process.env.PUBLIC_URL + `/image/logo.svg`}`}
+                  alt=""
+                />
                 <Heading
                   as="h3"
                   size="md"
