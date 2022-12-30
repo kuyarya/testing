@@ -1,5 +1,11 @@
+import NavigationBar from './components/01-ComponentLPage/NavigationBar/NavigationBar';
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <NavigationBar />
+    </>
+  );
 }
 
 export default App;
