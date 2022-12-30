@@ -89,7 +89,7 @@ export default function Hero() {
         pl={{ md: '40px' }}
       >
         <Image
-          p={5}
+          padding={5}
           alt={''}
           objectFit={'cover'}
           src={`${process.env.PUBLIC_URL + `/image/Hero.png`}`}
