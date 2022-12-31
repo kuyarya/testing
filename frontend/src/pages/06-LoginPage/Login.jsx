@@ -25,6 +25,7 @@ export default function Login() {
 
   return (
     <Container
+      data-aos="flip-up"
       maxW="lg"
       py={{
         base: '12',
