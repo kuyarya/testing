@@ -37,10 +37,10 @@ function loginSuccess(token, user) {
   };
 }
 
-function loginFailure(error) {
+export function loginFailure(error) {
   Toast.fire({
     icon: 'error',
-    title: 'Username atau Password salah',
+    title: 'Email atau Kata Sandi Salah',
   });
   return {
     type: LOGIN_FAILURE,
@@ -81,14 +81,14 @@ function fetchUsersFailure(error) {
 }
 
 //Async Action Creators
-export function login(username, password, props) {
+export function login(email, password, props) {
   return async (dispatch) => {
     dispatch(loginRequest());
     try {
       const response = await axios.post(
         'http://localhost:8080/api/auth/login',
         {
-          username,
+          email,
           password,
         },
         {
@@ -102,9 +102,15 @@ export function login(username, password, props) {
         const {token , user} = response.data
         dispatch(loginSuccess(token, user));
       */
-      dispatch(loginSuccess(response.data.token, response.data.user));
-      props.history.push('/dashboard');
+      if (response.data) {
+        dispatch(loginSuccess());
+        dispatch(loginSuccess(response.data.token, response.data.user));
+        props.history.push('/dashboard');
+      } else {
+        throw new Error('Data tidak ditemukan');
+      }
     } catch (error) {
+      dispatch(loginFailure());
       dispatch(loginFailure(error.response.data.error));
     }
   };
