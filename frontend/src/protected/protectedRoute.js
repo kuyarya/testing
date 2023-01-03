@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { Toast } from '../components/02-Reusable/LoadingEffect/Toast';
+import { Toast } from '../components/02-Reusable/Toast/Toast';
+
 export default function Protected() {
   let auth = { token: false };
   return auth.token ? (
