@@ -7,11 +7,9 @@ const initialState = {
   token: null,
   user: {
     id: null,
-    username: null,
-    role: null,
+    email: null,
   },
   error: null,
-  users: [],
 };
 
 const authSliceLogin = createSlice({
@@ -42,35 +40,14 @@ const authSliceLogin = createSlice({
       state.token = null;
       state.user = {
         id: null,
-        username: null,
-        role: null,
+        email: null,
       };
       state.error = null;
-    },
-    fetchUsersRequest(state) {
-      state.isLoading = true;
-      state.error = null;
-    },
-    fetchUsersSuccess(state, action) {
-      state.isLoading = false;
-      state.users = action.payload.users;
-      state.error = null;
-    },
-    fetchUsersFailure(state, action) {
-      state.isLoading = false;
-      state.error = action.payload.error;
     },
   },
 });
 
-export const {
-  loginRequest,
-  loginSuccess,
-  loginFailure,
-  logout,
-  fetchUsersRequest,
-  fetchUsersSuccess,
-  fetchUsersFailure,
-} = authSliceLogin.actions;
+export const { loginRequest, loginSuccess, loginFailure, logout } =
+  authSliceLogin.actions;
 
 export default authSliceLogin.reducer;

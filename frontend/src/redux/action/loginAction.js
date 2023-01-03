@@ -1,14 +1,11 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Toast } from '../../components/02-Reusable/LoadingEffect/Toast';
+import { Toast } from '../../components/02-Reusable/Toast/Toast';
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
 const LOGOUT = 'LOGOUT';
-const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
-const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
-const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 
 //Action Creators
 function loginRequest() {
@@ -30,8 +27,7 @@ function loginSuccess(token, user) {
       token,
       user: {
         id: user.id,
-        username: user.username,
-        role: user.role,
+        email: user.email,
       },
     },
   };
@@ -56,37 +52,13 @@ function logout() {
   };
 }
 
-function fetchUsersRequest() {
-  return {
-    type: FETCH_USERS_REQUEST,
-  };
-}
-
-function fetchUsersSuccess(users) {
-  return {
-    type: FETCH_USERS_SUCCESS,
-    payload: {
-      users,
-    },
-  };
-}
-
-function fetchUsersFailure(error) {
-  return {
-    type: FETCH_USERS_FAILURE,
-    payload: {
-      error,
-    },
-  };
-}
-
 //Async Action Creators
 export function login(email, password, props) {
   return async (dispatch) => {
     dispatch(loginRequest());
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/auth/login',
+        'http://localhost:8080//auth/login',
         {
           email,
           password,
@@ -112,23 +84,6 @@ export function login(email, password, props) {
     } catch (error) {
       dispatch(loginFailure());
       dispatch(loginFailure(error.response.data.error));
-    }
-  };
-}
-
-export function fetchUsers() {
-  return async (dispatch) => {
-    dispatch(fetchUsersRequest());
-    try {
-      const response = await axios.get('http://localhost:8080/api/users', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      dispatch(fetchUsersSuccess(response.data.users));
-    } catch (error) {
-      dispatch(fetchUsersFailure(error.response.data.error));
     }
   };
 }
