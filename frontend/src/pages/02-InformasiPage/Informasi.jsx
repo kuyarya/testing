@@ -17,7 +17,7 @@ export default function Informasi() {
 
   useEffect(() => {
     axios
-      .get('https://639ed8157aaf11ceb88c33f5.mockapi.io/ngasal3')
+      .get('http://localhost:8080/informasi')
       .then((res) => {
         setInformasi(res.data);
         setIsLoading(false);
