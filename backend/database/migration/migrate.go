@@ -2,6 +2,7 @@ package migration
 
 import (
 	"database/sql"
+
 	"github.com/ariopri/Let-It-Be/tree/main/backend/database/seeder"
 	_ "github.com/go-sql-driver/mysql"
 )
