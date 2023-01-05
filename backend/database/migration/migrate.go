@@ -9,7 +9,7 @@ import (
 
 func Migrate(db *sql.DB) {
 	_, err := db.Exec(`
-		CREATE TABLE IF NOT EXISTS users (
+		CREATE TABLE IF NOT EXISTS siswa (
 		    			id INT AUTO_INCREMENT PRIMARY KEY,
 		    			firstName VARCHAR(255) NOT NULL,
 		    			lastName VARCHAR(255) NOT NULL,

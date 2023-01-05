@@ -18,7 +18,7 @@ func NewSiswaRepository(db *sql.DB) entities.SiswaRepository {
 
 // 1. Fetch all data siswa
 func (siswa *siswaRepository) Fetch(ctx context.Context) ([]entities.SiswaResponse, error) {
-	query := `SELECT * FROM users`
+	query := `SELECT * FROM siswa`
 	rows, err := siswa.db.QueryContext(ctx, query)
 	if err != nil {
 		return []entities.SiswaResponse{}, err
@@ -49,7 +49,7 @@ func (siswa *siswaRepository) Fetch(ctx context.Context) ([]entities.SiswaRespon
 // 2.fetch user by id
 func (siswa *siswaRepository) FetchByID(ctx context.Context, id int64) (entities.SiswaResponse, error) {
 	var user entities.Siswa
-	sqlStmt := `SELECT * FROM users WHERE id = ?`
+	sqlStmt := `SELECT * FROM siswa WHERE id = ?`
 	row := siswa.db.QueryRowContext(ctx, sqlStmt, id)
 	err := row.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.Password, &user.CreatedAt, &user.UpdatedAt)
 	if err != nil {
@@ -69,7 +69,7 @@ func (siswa *siswaRepository) FetchByID(ctx context.Context, id int64) (entities
 // 3. fetch user by id for compare password
 func (siswa *siswaRepository) fetchById(ctx context.Context, id int64) (entities.Siswa, error) {
 	var user entities.Siswa
-	sqlStmt := `SELECT * FROM users WHERE id = ?`
+	sqlStmt := `SELECT * FROM siswa WHERE id = ?`
 	row := siswa.db.QueryRowContext(ctx, sqlStmt, id)
 	err := row.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.Password, &user.CreatedAt, &user.UpdatedAt)
 	if err != nil {
@@ -81,7 +81,7 @@ func (siswa *siswaRepository) fetchById(ctx context.Context, id int64) (entities
 // 4. fethc user by email
 func (siswa *siswaRepository) fetchUserByEmail(ctx context.Context, email string) (entities.Siswa, error) {
 	var user entities.Siswa
-	sqlStmt := `SELECT * FROM users WHERE email = ?`
+	sqlStmt := `SELECT * FROM siswa WHERE email = ?`
 	row := siswa.db.QueryRowContext(ctx, sqlStmt, email)
 	err := row.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.Password, &user.CreatedAt, &user.UpdatedAt)
 	if err != nil {
@@ -94,7 +94,7 @@ func (siswa *siswaRepository) fetchUserByEmail(ctx context.Context, email string
 func (siswa *siswaRepository) Create(ctx context.Context, s *entities.Siswa) (entities.SiswaResponse, error) {
 	//implementasi hash password
 	s.Password, _ = hash.HashPassword(s.Password)
-	query := `INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)`
+	query := `INSERT INTO siswa (firstName, lastName, email, password) VALUES (?, ?, ?, ?)`
 	row, err := siswa.db.ExecContext(ctx, query, s.FirstName, s.LastName, s.Email, s.Password)
 	if err != nil {
 		return entities.SiswaResponse{}, err
@@ -127,7 +127,7 @@ func (siswa *siswaRepository) Update(ctx context.Context, id int64, s *entities.
 	if s.Password != usr.Password {
 		s.Password, _ = hash.HashPassword(s.Password)
 	}
-	query := `UPDATE users SET firstName = ?, lastName = ?, email = ?, password = ? WHERE id = ?`
+	query := `UPDATE siswa SET firstName = ?, lastName = ?, email = ?, password = ? WHERE id = ?`
 
 	_, err = siswa.db.ExecContext(ctx, query, s.FirstName, s.LastName, s.Email, s.Password, id)
 	if err != nil {
@@ -153,7 +153,7 @@ func (siswa *siswaRepository) Delete(ctx context.Context, id int64) error {
 	if err != nil {
 		return err
 	}
-	query := `DELETE FROM users WHERE id = ?`
+	query := `DELETE FROM siswa WHERE id = ?`
 	_, err = siswa.db.ExecContext(ctx, query, id)
 	if err != nil {
 		return err
