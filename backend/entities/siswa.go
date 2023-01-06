@@ -16,17 +16,17 @@ type Siswa struct {
 }
 
 type SiswaResponse struct {
-	ID        int64  `json:"id" form:"id"`
-	FirstName string `json:"firstName" form:"firstName"`
-	LastName  string `json:"lastName" form:"lastName"`
-	Email     string `json:"email" form:"email"`
+	ID        int64  `json:"id"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName" `
+	Email     string `json:"email"`
 	CreatedAt string `json:"createdAt"`
 	UpdatedAt string `json:"updatedAt"`
 }
 
 type LoginSiswa struct {
-	Email    string `json:"email" form:"email" binding:"required, email"`
-	Password string `json:"password" form:"password" binding:"required, min=6"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type SiswaRepository interface {
