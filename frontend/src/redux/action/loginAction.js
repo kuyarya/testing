@@ -58,7 +58,7 @@ export function login(email, password, props) {
     dispatch(loginRequest());
     try {
       const response = await axios.post(
-        'http://localhost:8080//auth/login',
+        'http://localhost:8080/api/siswa/login',
         {
           email,
           password,
