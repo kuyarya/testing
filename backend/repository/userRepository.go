@@ -60,8 +60,8 @@ func (siswa *siswaRepository) FetchByID(ctx context.Context, id int64) (entities
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
 		Email:     user.Email,
-		CreatedAt: user.CreatedAt.Format("2006-01-02 15:04:05"),
-		UpdatedAt: user.UpdatedAt.Format("2006-01-02 15:04:05"),
+		CreatedAt: user.CreatedAt,
+		UpdatedAt: user.UpdatedAt
 	}
 	return *userResponse, nil
 }

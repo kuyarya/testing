@@ -5,14 +5,14 @@ import (
 	"time"
 )
 
-type Siswa struct {
-	ID        int64     `json:"id" form:"id"`
-	FirstName string    `json:"firstName" form:"firstName" binding:"required"`
-	LastName  string    `json:"lastName" form:"lastName" binding:"required"`
-	Email     string    `json:"email" form:"email" binding:"required, email"`
-	Password  string    `json:"password" form:"password" binding:"required, min=6"`
-	CreatedAt time.Time `json:"createdAt"`
-	UpdatedAt time.Time `json:"updatedAt"`
+type user struct {
+	ID        int64     `json:"id_siswa"`
+	FirstName string    `json:"firstName"`
+	LastName  string    `json:"lastName" `
+	Email     string    `json:"email"`
+	Password  string    `json:"password" `
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type SiswaResponse struct {
@@ -20,8 +20,8 @@ type SiswaResponse struct {
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName" `
 	Email     string `json:"email"`
-	CreatedAt string `json:"createdAt"`
-	UpdatedAt string `json:"updatedAt"`
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
 }
 
 type LoginSiswa struct {
