@@ -58,7 +58,7 @@ export function login(email, password, props) {
     dispatch(loginRequest());
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/siswa/login',
+        'http://localhost:8080/login',
         {
           email,
           password,
@@ -82,7 +82,7 @@ export function login(email, password, props) {
         throw new Error('Data tidak ditemukan');
       }
     } catch (error) {
-      dispatch(loginFailure());
+      // dispatch(loginFailure());
       dispatch(loginFailure(error.response.data.error));
     }
   };

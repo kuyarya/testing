@@ -1,4 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+//create async thunk
+export const register = createAsyncThunk(
+  'register/register',
+  async (payload, thunkAPI) => {
+    try {
+      // set header to specify that the data being sent is in json format
+      const config = { headers: { 'Content-Type': 'application/json' } };
+      const response = await axios.post(
+        'http://localhost:8080/register',
+        payload,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response.data.message;
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const authSliceRegister = createSlice({
   name: 'register',
@@ -6,20 +27,25 @@ const authSliceRegister = createSlice({
     isLoading: false,
     token: null,
     user: {},
-    error: null,
+    registerSuccess: false,
+    registerError: null,
   },
   reducers: {
-    registerRequest: (state) => {
+    //handling async actions
+    [register.pending]: (state) => {
       state.isLoading = true;
+      state.registerSuccess = false;
+      state.registerError = null;
     },
-    registerSuccess: (state, action) => {
+    [register.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.token = action.payload.token;
       state.user = action.payload.user;
+      state.registerSuccess = true;
     },
-    registerFailure: (state, action) => {
+    [register.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload.error;
+      state.registerError = action.payload;
     },
   },
 });

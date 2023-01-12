@@ -9,9 +9,15 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { Link as LinkTo } from 'react-router-dom';
+import useLoginState from '../../../zustand/todoLogin';
 
 export default function DaftarMentor() {
-  return (
+  const { isLoggedIn } = useLoginState();
+  const color = useColorModeValue('white', 'black');
+  const tauah = useColorModeValue('accentLight.900', 'accentLight.100');
+  const bacg = useColorModeValue('accentLight.400', 'accentDark.400');
+  const hoverBg = useColorModeValue('accentLight.500', 'accentDark.500');
+  return isLoggedIn ? null : (
     <Stack
       minH={{ base: 'auto', lg: '100vh' }}
       as={Container}
@@ -27,20 +33,20 @@ export default function DaftarMentor() {
           fontWeight={600}
           letterSpacing={'tight'}
           lineHeight={'shorter'}
-          color={useColorModeValue('gray.900', 'gray.100')}
+          color={tauah}
         >
           <Text>Ingin Bergabung Sebagai Partner Pengajar Kami?</Text>
-          <Text color={useColorModeValue('gray.900', 'gray.100')}>
+          <Text color={tauah}>
             Bagikan Pengalamanmu Sekarang Bersama Para Pengajar Lainya
           </Text>
         </Heading>
         <Button
           as={LinkTo}
           to={'cara_mendaftar_instruktur'}
-          color={useColorModeValue('white', 'black')}
-          bg={useColorModeValue('accentLight.400', 'accentDark.400')}
+          color={color}
+          bg={bacg}
           _hover={{
-            bg: useColorModeValue('accentLight.500', 'accentDark.500'),
+            bg: { hoverBg },
           }}
           p="4"
           mt={4}

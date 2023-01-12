@@ -9,6 +9,10 @@ const store = configureStore({
     register: authSliceRegister,
     user: userSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

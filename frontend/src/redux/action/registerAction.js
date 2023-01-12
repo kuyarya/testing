@@ -47,24 +47,17 @@ function registerFailure(error) {
 
 //Async Action Creators
 
-export function register(
-  firstname,
-  lastname,
-  email,
-  password,
-  konfirmasiPassword
-) {
+export function register(firstname, lastname, email, password) {
   return async (dispatch) => {
     dispatch(registerRequest());
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/siswa/register',
+        'http://localhost:8080/register',
         {
           firstname,
           lastname,
           email,
           password,
-          konfirmasiPassword,
         },
         {
           headers: {

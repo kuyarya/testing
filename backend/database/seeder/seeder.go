@@ -6,10 +6,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Seed(db *sql.DB) {
+func Seed(DB *sql.DB) {
 	//user Siswa
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("password"), bcrypt.DefaultCost)
-	_, err := db.Exec("INSERT INTO siswa (firstName, lastName, email, password) VALUES (?, ?, ?, ?)", "Uciha", "Madara", "konoha@email.com", hashedPassword)
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("UserBerhasilnih"), 12)
+	_, err := DB.Exec("INSERT INTO users (email, password, role, nama_depan, nama_belakang, phone) VALUES (?, ?, ?, ?, ?, ?)", "konoha@email.com", hashedPassword, "client", "Uciha", "Madara", "6281212121212")
 	if err != nil {
 		panic(err)
 	}

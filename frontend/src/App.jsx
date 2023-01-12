@@ -16,6 +16,7 @@ function App() {
       <Route path="/" element={<RoutesOutlet />}>
         <Route index element={<LandingPage />} />
         <Route path="informasi" element={<Informasi />} />
+        x``
         <Route path="hubungi" element={<HubungiKami />} />
         <Route path="tentang" element={<About />} />
         <Route element={<Protected />}>
